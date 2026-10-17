@@ -1,0 +1,23 @@
+# Canary track: starts at 0 replicas. The rollout controller scales it (10% -> 50% -> 100%).
+# Set the candidate version before a rollout, e.g.
+#   kubectl -n canary-demo set env deployment/dropout-model-canary MODEL_VERSION=v2-good
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+nameSuffix: -canary
+labels:
+  - pairs:
+      track: canary
+    includeSelectors: true
+patches:
+  - target:
+      kind: Deployment
+      name: dropout-model
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 0
+      - op: replace
+        path: /spec/template/spec/containers/0/env/0/value
+        value: v2-good
