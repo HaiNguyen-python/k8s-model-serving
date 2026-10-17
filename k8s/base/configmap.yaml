@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dropout-model-config
+data:
+  MODEL_DIR: /app/models
+  RISK_THRESHOLD: "0.5"

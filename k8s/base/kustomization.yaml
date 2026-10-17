@@ -1,0 +1,8 @@
+# Generic model server: one Deployment + its settings. Overlays add the track (stable/canary),
+# the model version and the replica count.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: canary-demo
+resources:
+  - configmap.yaml
+  - deployment.yaml
