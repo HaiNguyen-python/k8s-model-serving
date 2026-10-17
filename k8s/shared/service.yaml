@@ -1,0 +1,16 @@
+# One Service in front of both tracks. It selects only app=dropout-model (not track), so
+# traffic splits by the number of ready pods in each Deployment: the replica-ratio canary.
+apiVersion: v1
+kind: Service
+metadata:
+  name: dropout-model
+  namespace: canary-demo
+  labels:
+    app: dropout-model
+spec:
+  selector:
+    app: dropout-model
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

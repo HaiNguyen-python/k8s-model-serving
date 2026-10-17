@@ -1,0 +1,6 @@
+# Resources shared by both tracks. Kept out of the overlays, because nameSuffix would rename them.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - service.yaml
