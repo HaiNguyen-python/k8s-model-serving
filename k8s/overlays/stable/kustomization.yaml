@@ -1,0 +1,21 @@
+# Stable track: all replicas, current production model.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+nameSuffix: -stable
+labels:
+  - pairs:
+      track: stable
+    includeSelectors: true
+patches:
+  - target:
+      kind: Deployment
+      name: dropout-model
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 10
+      - op: replace
+        path: /spec/template/spec/containers/0/env/0/value
+        value: v1
